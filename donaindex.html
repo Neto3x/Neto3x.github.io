@@ -59,8 +59,9 @@
   td{padding:12px 6px;text-align:center;border-top:1px solid var(--line);font-family:'Bebas Neue';font-size:1.5rem;color:var(--cream)}
   td:first-child{text-align:left;padding-left:12px;font-family:'Montserrat';font-size:.8rem;letter-spacing:.1em;color:var(--gold);text-transform:uppercase;font-weight:600}
 
-  .next{display:block;width:100%;margin-top:26px;cursor:pointer;background:transparent;color:var(--cream);border:1px solid var(--gold);
-    border-radius:14px;padding:14px;font-family:'Bebas Neue';font-size:1.4rem;letter-spacing:.06em}
+  .pn{display:flex;gap:10px;margin-top:26px}
+  .next{flex:1;cursor:pointer;background:transparent;color:var(--cream);border:1px solid var(--gold);
+    border-radius:14px;padding:14px 8px;font-family:'Bebas Neue';font-size:1.25rem;letter-spacing:.05em}
 
   footer{text-align:center;padding:36px 18px 60px;border-top:1px solid var(--line);color:var(--soft);font-size:.95rem}
   footer .big{font-family:'Bebas Neue';font-size:2.2rem;color:var(--cream);letter-spacing:.05em}
@@ -204,7 +205,8 @@ MENU.forEach((s, i) => {
   else body = (s.cols ? `<div class="cols">${s.cols.map(c=>`<span>${c}</span>`).join('')}</div>` : '') + s.items.map(row).join('');
 
   const next = MENU[i+1];
-  const nextBtn = next ? `<button type="button" class="next" data-go="${next.id}">Próxima: ${next.title} →</button>` : '';
+  const prev = MENU[i-1];
+  const nextBtn = `<div class="pn">${prev ? `<button type="button" class="next" data-go="${prev.id}">← ${prev.title}</button>` : ''}${next ? `<button type="button" class="next" data-go="${next.id}">${next.title} →</button>` : ''}</div>`;
 
   menu.insertAdjacentHTML('beforeend',
     `<section id="${s.id}"><div class="title">${s.title}</div>${s.note?`<div class="note">${s.note}</div>`:''}${body}${nextBtn}</section>`);
