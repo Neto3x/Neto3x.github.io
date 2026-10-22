@@ -1,21 +1,25 @@
-Por padrão, crie todas as páginas web e Landing Pages incorporando uma Seção Hero Interativa com animação baseada em Scroll (Scroll-Driven Storytelling). 
+# Diretrizes do Projeto — Neto.web
 
-Siga estritamente estas diretrizes de desenvolvimento:
+## 1. Padrões de Git & Workflow
+- Criar Issues no GitHub para todas as tarefas (Correção, Melhoria ou Nova função).
+- Gerenciar deploys via Pull Requests (PRs), mencionando a Issue correspondente na descrição do PR.
 
-1. Bibliotecas e Dependências:
-   - Inclua os scripts da CDN do GSAP (GreenSock) e do plugin ScrollTrigger em todas as páginas.
-   - Use CSS moderno / Tailwind CSS para estilização fluida e responsiva.
+## 2. Padrões de UI, Design & Taste Skill (Anti-Slop)
+- Seguir estritamente as diretrizes de direção de arte do arquivo `SKILL.md` do repositório `Neto3x/taste-skill`.
+- Evitar estampa genérica ("AI-slop"): sem cantos exageradamente arredondados, sem quebras bruscas de contraste sem sentido, sem badges sobrepondo textos do hero e sem botões flutuantes cobrindo conteúdos.
+- Garantir acessibilidade básica: incluir atributos `alt` descritivos em todas as imagens e assegurar navegação por teclado fluida e visível (`:focus-visible`).
 
-2. Estrutura da Seção Hero (Hero Pinning):
-   - A introdução do site deve ocupar a primeira seção (`min-h-screen` / `100vh`).
-   - Trave a seção na tela usando `pin: true` no ScrollTrigger para que o usuário permaneça na seção enquanto rola a página.
-   - A animação das camadas visuais do produto/elemento principal deve ser sincronizada com o progresso do scroll (`scrub: true` ou `scrub: 1` para inércia suave).
+## 3. Animações, Interatividade & Scroll Storytelling
+- **Seção Hero Interativa (Scroll-Driven):** Por padrão, crie todas as Landing Pages incorporando uma Seção Hero com animação baseada em Scroll (GSAP + ScrollTrigger).
+  - Incluir CDN do GSAP e ScrollTrigger.
+  - Travar a seção inicial usando `pin: true` (`100vh` / `min-h-screen`) e sincronizar a animação com `scrub: 1` ou `scrub: true`.
+  - Liberar o pin para a rolagem fluir normalmente após concluir a transição da animação.
+  - Otimizar para Mobile/Touch sem *jank*, utilizando `will-change: transform` e aceleração por GPU (`transform: translate3d`).
+- **Motion Principles (Kyle Zantos):** Aplicar uso de skeletons, lazy loading e suporte a `prefers-reduced-motion`.
+- **Frequency Gate:** Ações frequentes devem ter transições rápidas (180ms a 300ms) e navegação por teclado nunca deve ser atrasada por animações.
 
-3. Compatibilidade Mobile & Touch:
-   - Garanta compatibilidade total com dispositivos móveis (iOS e Android), assegurando que o gesto de rolagem com o polegar sincronize suavemente a animação sem sobressaltos (*jank*).
-   - Otimize o desempenho usando `will-change: transform` e aceleração via GPU (`transform: translate3d`) em elementos animados.
-
-4. Transição Fluida para o Resto do Site:
-   - Após a conclusão da animação de introdução (ex: quando as camadas se juntam ou se desfazem), o pin do ScrollTrigger deve ser liberado, permitindo que a rolagem flua normalmente para as seções de conteúdo do site.
-
-Entregue sempre o código HTML/JS/CSS completo, funcional e com comentários claros indicando como substituir os assets (imagens e textos) para o elemento principal da animação.
+## 4. Arquitetura, Qualidade & Observabilidade
+- Garantir observabilidade (Sentry, Datadog, NewRelic, OpenTelemetry).
+- Garantir qualidade e lint de código (Arch-contract, Biome, Commitlint, Knip, Stryker).
+- Cobertura de testes unitários, de integração e end-to-end (Codecov, Playwright).
+- 
